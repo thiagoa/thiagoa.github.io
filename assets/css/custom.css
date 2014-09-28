@@ -1,0 +1,8 @@
+p {
+    margin: 1.2em 0;
+    text-indent: 0px !important;
+}
+
+p+p {
+    margin-top: 0px !important;
+}

@@ -1,0 +1,36 @@
+{
+    "^w" = "deleteWordBackward:";
+    "~f" = "moveWordForward:";
+    "~b" = "moveWordBackward:";
+    "~<" = "moveToBeginningOfDocument:";
+    "~>" = "moveToEndOfDocument:";
+    "~B" = "moveWordLeftAndModifySelection:";
+    "~F" = "moveWordRightAndModifySelection:";
+    "^/" = "undo:";
+    "^?" = "redo:";
+    "~v" = "pageUp:";
+    "~d" = "deleteWordForward:";
+    "~H" = (moveToBeginningOfParagraphAndModifySelection:, swapWithMark:, moveToEndOfParagraphAndModifySelection:, moveParagraphForwardAndModifySelection:, moveDownAndModifySelection:);
+    "~}" = (moveDown:, moveToEndOfParagraph:, moveForward:);
+    "~{" = (moveUp:, moveToBeginningOfParagraph:, moveBackward:);
+    "~m" = (moveToBeginningOfParagraph:, moveWordForward:, moveWordBackward:);
+    "~M" = (moveToBeginningOfParagraphAndModifySelection:, moveWordForwardAndModifySelection:, moveWordBackwardAndModifySelection:);
+    "~@" = "selectWord:";
+    "^V" = "pageDownAndModifySelection:";
+    "~V" = "pageUpAndModifySelection:";
+    "^m" = "insertNewline:";
+    "^H" = (moveToBeginningOfParagraph:, deleteToEndOfParagraph:);
+    "~w" = (cut:, yank:);
+    "^ " = "setMark:";
+    "^m" = "deleteToMark:";
+    "^x" = {
+        "^x" = "selectToMark:";
+        "^u" = "uppercaseWord:";
+        "^l" = "lowercaseWord:";
+        "^m" = "swapWithMark:";
+        "^s" = "saveAs:";
+    };
+    "^s" = "saveAs:";
+    "~o" = (moveToEndOfParagraph:, insertNewline:);
+    "~O" = (moveToBeginningOfParagraph:, insertNewline:, moveUp:);
+}
