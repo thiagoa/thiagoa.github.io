@@ -193,7 +193,7 @@ class ArticlesController < ActionController::TestCase
     article = articles(:draft)
     user = users(:admin) # Using admin here, but it really doesn't matter
     policy = stub(published?: false)
-    ArticlePolicy.any_instance.stubs(:new).with(user, article).returns(policy)
+    ArticlePolicy.stubs(:new).with(user, article).returns(policy)
     sign_in(user)
 
     patch :publish, id: article.id
