@@ -1,20 +1,20 @@
 ---
 layout: post
 title: Too many private methods!
-description: An example of how too many private methods can lead to a better design
+description: An example of how too many private methods can lead to a better design while refactoring.
 tags: [ruby refactoring]
 comments: true
 ---
 
 I don't like bloated views, I guess nobody does. Views can easily become the worst nightmare of
-any application, if not properly taken care.
+any application, when care is not properly taken.
 
-I was working on an application where there were lots of search forms spread throughout the views.
+I was working on an application with lots of search forms spread throughout the views.
 Those forms were not backed by ActiveRecord, so I had to use pure Rails form helpers,
-like **text\_field\_tag**. If you use these kinds of helpers too much, any view can quickly
-become a mess. 
+like **text\_field\_tag**. When you use these kinds of helpers too much in your views
+they quickly become a mess. 
 
-I eventually got tired of building the forms that way, and felt the need to code a little
+I eventually got tired of building forms that way, and felt the need to code a little
 class which builds those forms in an elegant and straightforward manner.
 
 My first step was to think about the form builder at a higher level. How would I like to build my form?
@@ -28,17 +28,17 @@ My first step was to think about the form builder at a higher level. How would I
 <% end %>
 {% endhighlight %}
 
-That looks clean and good. The **by\_term** and **by\_status** parameters point to ActiveRecord scopes, related
-to the **@model** object. There is custom code in the backend responsible for securely performing searches,
-using those scopes - I will not show the code here for brevity purposes.
+That looks clean and good. The **by\_term** and **by\_status** parameters point to ActiveRecord scopes related
+to the **@model** object. There is some code in the backend responsible for securely performing searches
+using those scopes - I will not show the code here due to brevity purposes.
 
 Besides building the form fields, here are some additional requirements:
 
 - Each field must accept an **options** hash, just like the existing Rails form helpers.
-- It must automatically fill in each field value after submit, gracefully keeping up with the form state.
-- You are not required to pass a model, it is optional. The model can be used to help with building
-  the form state, but the implementation must know how to search for the input's value attribute in
-  other sources.
+- It must automatically fill in each field's value after submit, gracefully keeping up with the form state.
+- You are not required to pass a model, it is optional. The model can be used to help building
+  the current form state, but the implementation must know other sources where to search for the input's value
+  attribute.
 
 ## Coding our form builder
 
@@ -59,7 +59,7 @@ module FormHelper
 end
 {% endhighlight %}
 
-This helper method builds our input fields, wrapping them inside a form tag.
+This helper method builds the HTML for our input fields, wrapping it inside a form tag.
 As a next step we will build the *SearchForm* class:
 
 {% highlight ruby %}
@@ -128,8 +128,9 @@ class SearchForm
 end
 {% endhighlight %}
 
-This is the code we need to make our form work, also taking into account our additional requirements.
-I will not include the tests here, so we can keep our focus narrowed on the main subject
+This is the code we need to make our form work, also taking into account our
+additional requirements. I will not include the tests here, so we can keep our focus
+narrowed on the main subject.
 
 Note that we could have handled the main form tag there, instead of in the helper, but
 that's OK for now.
@@ -140,16 +141,16 @@ that's OK for now.
    which gives us access to regular Rails helpers. Take a look at the **search\_form** helper method
    to see how we are handling the context.
 
-2. The public methods are responsible for building the form inputs we need. They use raw Rails
+2. The public methods are responsible for building the form inputs that we need. They use raw Rails
    form helpers.
 
 3. The methods **text_field** and **select** both find the input's value after submit. First 
    they try to find it in the **options** hash; if it's not there, they look into the
-   model, using a **get_filter_param** method (I will not show it here).
-   The only thing you need to understand is that the model keeps track of the last search performed,
-   and accepts values from outside of the request params - if we wish to initialize the form with a default
-   search we can, and the form still knows how to keep the state. Finally, if it doesn't find the value
-   in the model, it looks for it in the request params.
+   model, using a **get_filter_param** method. I will not show it here, but the only thing you need
+   to understand is that the model keeps track of the last performed search, and accepts values
+   from outside of the request params - that way, if we wish to initialize the filter with default
+   search params we can do so, and the form will still know how to build its state. Finally,
+   if it doesn't find the value in the model, it looks for it in the request params.
 
 4. Both methods return the result of **inline\_labeled\_field**, which itself returns a complete field together
    with its label. We only need the inline layout for now.
@@ -159,17 +160,17 @@ simplest we could get at first.
 
 ## Too many private methods!
 
-Notice we have 5 private methods. Too many private methods is a sign our class is doing too much, and
+Notice that we have 5 private methods. Too many private methods can be a sign our class is doing too much, and
 gives us a clue that we can abstract it even further. In Ruby we have the awesome feature of nested
-classes. We can build these artifacts to lessen our burden and make our code cleaner and more organized. 
+classes. We can build these artifacts to lessen our burden, and make our code cleaner and more organized. 
 
-The **find\_value\_in\_filter** and **find\_value\_in\_request** methods could be condensed inside
-**find\_value**, but we want to make our intent as clear as possible, effectively giving all
+The **find\_value\_in\_filter** and **find\_value\_in\_request** methods could be condensed into the
+main **find\_value** method, but we want to make our intent as clear as possible, effectively giving all
 things a name to ease the life of people who read our code, and also for ourselves - so we prefer to keep
 both methods.
 
-But we can do even better: we can abstract the three methods in their own nested class inside
-**SearchForm**, which we choose to name **FieldValueFinder**:
+But we can do even better: we can abstract the three methods into their own nested class inside
+**SearchForm**. We choose to name the new class **FieldValueFinder**:
 
 {% highlight ruby %}
 class FieldValueFinder
@@ -198,7 +199,7 @@ end
 This class' responsibility is narrow and focused. We can easily understand what it does in its context,
 and its dependencies are clear and explicit. It makes our **SearchForm** class easier to reason about, and
 more compliant, although not completely, with the single responsibility principle (SRP). This is the
-final **SearchForm** class, for now:
+final **SearchForm** class for now:
 
 {% highlight ruby %}
 class SearchForm
@@ -275,6 +276,11 @@ class SearchForm
   end
 end
 {% endhighlight %}
+
+A quick note about nested classes: although this one is inside the private section of
+our main class, that private declaration doesn't have any effect with classes. Anyway, we 
+are signaling that the child class is private, and clients can't rely on its API.
+We can also mark the class with *:nodoc:*, to make our intent even clearer.
 
 ## Wrapup
 
