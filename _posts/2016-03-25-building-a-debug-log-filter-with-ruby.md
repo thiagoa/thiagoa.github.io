@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Effectively Developing with Logs
+title: Building a Debug Log Filter with Ruby
 description:
 tags: [debug,ruby,rails]
 comments: true
