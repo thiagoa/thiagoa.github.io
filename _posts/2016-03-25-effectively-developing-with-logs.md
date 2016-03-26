@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Effectively developing with logs
+title: Effectively Developing with Logs
 description:
 tags: [debug,ruby,rails]
 comments: true
