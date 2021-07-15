@@ -6,9 +6,11 @@ tags: [rails,ruby,activerecord]
 comments: true
 ---
 
+You can read the brazilian portuguese version of this post [here](http://thiagoa.github.io/contando-queries-do-active-record/).
+
 Recently, some colleagues have been impressed with a code snippet I've written on a pull request to count Active Record queries. But why would one do that? Well, there are certainly good reasons!
 
-I enjoy a TDD workflow when the situation calls for it, so I was trying to come up with a way to optimize the traversal of a tree of Active Record objects implemented  with the `ancestry` gem. The problem is that GraphQL was accessing the tree roughly like this:
+I enjoy a TDD workflow when the situation calls for it, so I was trying to come up with a way to optimize the traversal of a tree of Active Record objects implemented  with the [`ancestry`](https://github.com/stefankroes/ancestry) gem. The problem is that GraphQL was accessing the tree roughly like this:
 
 ```ruby
 # Pseudocode to explain the problem.
