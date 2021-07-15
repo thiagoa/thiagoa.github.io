@@ -21,7 +21,7 @@ publisher.root_nav.children do |child|
 end
 ```
 
-Para quem conhece o Active Record, é bastante visível que o código acima sofre de N+1, onde cada filho da coleção `children` roda uma query adicional para buscar outra coleção de filhos e por aí vai. O primeiro passo para resolver o problema foi escrever alguns testes e interceptar o lugar do código onde o "root nav" estava sendo buscado, então eu comecei com o seguinte código:
+Para quem conhece o Active Record, é bastante visível que o código acima sofre de N+1, onde cada filho da coleção `children` roda uma query adicional para buscar outra coleção de filhos e por aí vai. O primeiro passo para resolver o problema foi escrever alguns testes e interceptar o lugar onde o "root nav" estava sendo buscado, então eu comecei com o seguinte código:
 
 ```ruby
 class NavItemsQuery
@@ -66,9 +66,9 @@ it 'execute three queries or less' do
 end
 ```
 
-Isso me pareceu bem razoável porque meu teste estava exercitando uma árvore com profundidade 3, e depois de alguma análise eu descobri que podia rodar uma query para cada nível da árvore.
+Isso me pareceu razoável porque meu teste estava exercitando uma árvore com profundidade 3, e depois de alguma análise eu descobri que podia rodar uma query para cada nível da árvore.
 
-Mas como a contagem de queries funciona? O Active Record tem um mecanismo de pubsub (publish-subscribe) onde você pode se inscrever usando a string `sql.active_record` para contar toda e qualquer query SQL executada pelo Rails, e eu simplesmente usei a closure do bloco para contar as queries. Legal né?
+Mas como a contagem de queries funciona? O Active Record tem um mecanismo de pubsub (publish-subscribe) onde você pode se inscrever usando a string `sql.active_record` para interceptar toda e qualquer query SQL executada pelo Rails, e eu simplesmente usei a closure do bloco para contar as queries. Legal né?
 
 Como eu tinha mais de um teste contando queries, eu criei um um helper:
 
@@ -108,16 +108,21 @@ expect(count).to be 1
 
 O motivo é que eu descobri uma forma de buscar tudo com uma única query SQL e melhorar ainda mais a performance, mas vou deixar isso para outro post :)
 
+**Observação 1**: Esse tipo de contagem envolve expectativas mais básicas e não substitui testes de performance apropriados para casos mais complexos. Uma query, por exemplo, pode ser mais lenta do que três ou mais se não estiver corretamente otimizada, então cuidado!
+
+**Observação 2**: Cuidado para não incluir queries executadas durante o setup do seu teste! Certifique-se que o setup é feito fora do bloco do método `counting_active_record_queries`.
+
+
 ## Bonus: Debugando queries do Active Record
 
 Sabe aquela query que você vê nos logs do Rails e não tem ideia de onde vem, como uma agulha no palheiro? Você pode usar as notificações do Active Record para encontrá-las também!
 
 ```ruby
 ActiveSupport::Notifications.subscribe('sql.active_record') do |_, _, _, _, details|
-  if details[:sql] =~ MINHA_REGEX
+  if details[:sql].match?(MINHA_REGEX)
     puts '*' * 50
     puts details[:sql]
-    puts caller.join("\n")
+    puts caller
     puts '*' * 50
   end
 end

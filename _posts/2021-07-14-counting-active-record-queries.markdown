@@ -21,7 +21,7 @@ publisher.root_nav.children do |child|
 end
 ```
 
-As you can see, this code suffers from the N+1 problem where each children runs an additional query to fetch their children and so on. The first step to address the N+1 problem was to write some tests and then intercept the place where the root nav item was being fetched, so I started with the following code:
+As you can see, this example suffers from the N+1 problem where each children runs an additional query to fetch their children and so on. The first step to address the N+1 problem was to write some tests and then intercept the place where the root nav item was being fetched, so I started with the following code:
 
 ```ruby
 class NavItemsQuery
@@ -43,9 +43,9 @@ Into this:
 NavItemsQuery.call(publisher.root_nav)
 ```
 
-That of course did not change anything but I was off to a great start. At least I created the class where I would write my code, and my tests simply verified the contents of the tree until reaching `max_depth`.
+That of course did not change anything but I was off to a great start. At least I created the class where I would write my code, while my tests were setup to verify the contents of the tree until reaching `max_depth`.
 
-The next step was to reuse the same tests but actually optimize the fetching strategy. In other words, the behavior would be kept the same but the code would be optimized. With a TDD workflow, how do I make that guarantee? One way is by counting SQL queries! With that in mind, I came up with the following test:
+The next step was to reuse the same tests but actually optimize the fetching strategy. In other words, the behavior would be kept the same but the code around it would be optimized. Under a TDD workflow, how do I make that guarantee? One way is by counting SQL queries! With that in mind, I came up with the following test:
 
 ```ruby
 it 'execute three queries or less' do
@@ -63,9 +63,9 @@ it 'execute three queries or less' do
 end
 ```
 
-That seemed reasonable because my test exercised a tree with depth 3, and I after some analysis I figured out I could run one query for each level of the tree.
+That seemed reasonable because my test exercised a tree with depth 3, and I after some analysis I figured I could run one query per level of the tree.
 
-But how does counting queries work? Active Record has a pubsub mechanism where you can subscribe to `sql.active_record` to count any and all SQL queries being executed by Rails, and I simply leveraged the block's closure to count the queries. How great is that?
+But how does counting queries work? Active Record has a pubsub mechanism where you can subscribe to `sql.active_record` to intercept any and all SQL queries being executed by Rails, and I simply leveraged the block's closure to count the queries. How great is that?
 
 Since I had more than one test counting queries, I created a helper method:
 
@@ -94,7 +94,7 @@ it 'execute three queries or less' do
 end
 ```
 
-Great! I also have to add that during the TDD session, the assertion changed into this:
+Great! I must also add that during the TDD session, the assertion changed into this:
 
 ```ruby
 expect(count).to be 1
@@ -102,16 +102,20 @@ expect(count).to be 1
 
 Because there was actually a way to fetch everything with a single query and further improve the performance, but I'll leave that up to another post :)
 
+**Note 1**: This style of counting queries translates into a very focused expectation and does not replace performance tests for more complex cases. For instance, a single query may be slower than three or more if not optimized correctly, so pay attention!
+
+**Note 2**: Be careful not to count any queries executed during setup phase! Make sure setup is performed _outside_ of the `counting_active_record_queries` block.
+
 ## Bonus: Debugging Active Record queries
 
 Do you know that query you see in the Rails logs and you have no idea where it comes from, like a needle in a haystack? Well, you can use Active Support notifications to find it as well!
 
 ```ruby
 ActiveSupport::Notifications.subscribe('sql.active_record') do |_, _, _, _, details|
-  if details[:sql] =~ MY_QUERY_REGEX
+  if details[:sql].match?(MY_QUERY_REGEX)
     puts '*' * 50
     puts details[:sql]
-    puts caller.join("\n")
+    puts caller
     puts '*' * 50
   end
 end
@@ -121,7 +125,7 @@ The above trick consists in:
 
 1. Subscribing to Active Record queries;
 2. The `details[:sql]` variable has the SQL query, which you can use to match against a portion of the query you are debugging;
-3. You print the backtrace with `caller.join("\n")` to see where the query is being executed.
+3. Printing the backtrace with `caller.join("\n")` to see where the query is being executed.
 
 You can even slap a `binding.pry` inside the block you feel like it.
 
