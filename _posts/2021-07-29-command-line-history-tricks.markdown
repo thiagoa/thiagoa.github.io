@@ -6,13 +6,15 @@ tags: [shell bash zsh]
 comments: true
 ---
 
-For any given computer task, there are usually shortcuts to make it faster and be more precise. However, the main problem is not being slow; the point is, dragging a cursor to a target one character at a time (holding down an arrow key or something), copying and pasting with the mouse, etc, quickly gets tiring and unexciting. It builds up mental overhead over the course of a day.
+You can read the brazilian portuguese version of this post [here](http://thiagoa.github.io/dicas-de-historico-de-linha-de-comando/).
 
-When it comes to the shell, there are multiple ways of being precise. Shells have advanced history expansion and editing capabilities. I don't mean to overwhelm you with this post. The goal here is to provide you with some shortcuts and a mental model for you to remember them, because, otherwise, they are not so easy to remember.
+There are usually shortcuts for any given computer task to make it go faster or be more precise. However, the problem is not being slow; the point is, dragging a cursor to a target one character at a time (holding down an arrow key or something), copying and pasting with the mouse, etc, quickly gets tiring and unexciting. It builds up mental overhead over the course of a day.
+
+When it comes to the shell, there are multiple ways of being precise. Shells have advanced history expansion and editing capabilities. I don't mean to overwhelm you with this post. The goal here is to provide you with a few shortcuts and a mental model for you to remember them, because, otherwise, they wouldn't be so easy to remember.
 
 ## The shell expansion character
 
-The shell expansion character is `!` (bang). This is the first thing you should remember, **ever**. Starting with a bang, you can expand:
+The shell expansion character is `!` (bang). That is the first thing you should remember, **ever**. With a bang, you can expand:
 
 - Anything from the current command: the full string, a specific argument, a range of arguments, etc.
 - Anything from the last command: the full string, a specific argument, a range of arguments, etc.
@@ -20,9 +22,9 @@ The shell expansion character is `!` (bang). This is the first thing you should 
 
 ## A general example
 
-To reference arguments from the current command, use the `!#:N` shortcut.
+First, I want to give you a general idea of how shell history features can be used productively.
 
-For example, say you want to rename a file:
+To reference arguments from the current line, you can resort to the `!#:N` shorthand. For example, say you want to rename a file:
 
 ```sh
 mv some/long/path/name !#:1
@@ -34,20 +36,22 @@ After typing `!#:1` and then hitting `TAB`, your command line will expand to:
 mv some/long/path/name some/long/path/name
 ```
 
-> TAB is just for accessibility; the shell will automatically expand wildcards upon executing the command.
+> TAB is just for editing the contents or for accessibility. The shell will automatically expand wildcards upon executing the command.
 
-Now you can edit that argument to your liking, which may be quicker than copy-paste or typing it out from scratch. Note that I chose to expand argument 1. Arguments start from 0, so `#!:0` repeats the first argument, `#!:1` repeats the second, and so on.
+Now you can edit that argument to your liking, which is usually faster than copy-paste or typing it out from scratch.
 
-`!#:N` may be cryptic and hard to remember, but there's a mind trick. Just remember that hashtag is usually used to reference numbers, like #0, #1, #2, etc, and the shell history expansion character is usually `!` (bang). So to reference the first argument, you would type `!#1` and then put a colon between `#` and `1`.
+Note that I expanded argument 1. Arguments start from 0, so `#!:0` repeats the first argument, `#!:1` repeats the second, and so on.
 
-In the same way, you can grab the full previous command with `!!` (double bang). If you forgot to `sudo` the previous command, you can do:
+`!#:N` may be cryptic and hard to remember, but I made up a trick to help me remember the "current line" case: keep in mind that hashtags can be used to reference numbers - like #0, #1, #2, etc. -, and the shell history expansion character is `!` (bang). So, to reference the first argument, type `!#1` and then put a colon between `#` and `1`.
+
+In the same way, you can grab the entire previous command with `!!` (double bang). So, if you forgot to `sudo` something, you can do:
 
 ```sh
 systemctl stop gdm # Ooops...
 sudo !! # Now this is what you want!
 ```
 
-As expected, you can also get individual arguments of the last command with `!!:N`. If you want the last argument, use a dollar sign, like this: `!!:$`. This is super helpful when typing out a sequence of commands where you repeatedly reference the last argument:
+As expected, you can also get individual arguments from the last line with `!!:N`. For instance, if you want their last argument, use a dollar sign - `!!:$` - which is super helpful when typing out a sequence of commands where you repeatedly reference the last argument:
 
 ```sh
 mkdir -p some/dir
@@ -56,58 +60,70 @@ cd !!:$ # I will explain later how you can simplify this...
 
 ## Expanding any command: Event Designators
 
-There's an easy pattern to follow:
+It is possible to reference or repeat any command, including the current line:
 
-- `!#` - Current command
-- `!!` or `!-1` - Last command.
+- `!#` - Current line
+- `!!` or `!-1` - Previous command.
 - `!-2` - Penultimate command
 - `!-3` - Antepenultimate command
-- `!-N` - N previous command
+- `!-N` - Nth previous command
+- `!pattern` - The previous command starting with `pattern`
 
-Let's call the above "event designators". Event designators specify which history line to use, and can be operated upon to extract words or ranges, which can be further modified (we will not touch modifiers in this article). Start with the above to slice any part of any command. However, they alone will expand everything! So if you want to repeat everything you've typed so far, use:
+Let's call the above "Event Designators". Event designators specify which history line to use, and can be operated upon to extract words or ranges, which can be further manipulated (we will not touch modifiers in this article) into something else. Start with the above designators to slice any part of any command. However, they alone will expand the full command line! So if you want to repeat everything you've typed so far:
 
 ```sh
-some command line !#
+ls some/path/here !# 
 ```
 
 Which will expand to:
 
 ```sh
-some command line some command line
+ls some/path/here ls some/path/here
 ```
 
-Not so useful, right? Expanding the full command is usually more useful to reference _previous_ commands, so keep that in mind! `sudo !!` is a good example.
+Not so useful, right? Expanding the full command is usually more useful to reference _previous_ commands, so keep that in mind! `sudo !!` is a good example of that.
 
-Of course, you can use that to repeat previous commands in full:
+Of course, you can use Event Designators to repeat any previous command in full:
 
 ```sh
 !-2
 ```
 
-This is a substitute for pressing `ctrl+p`/`up` two times and then `return` to repeat the penultimate command.
-
+Which is a substitute for pressing `ctrl+p` or `up` twice to get to the penultimate command.
 
 ## Expanding specific words
 
-Let's say `:` (colon) is the "pick word operator". "Word" is bash's terminology, but "argument" is easier to undertand. If you want to pick argument N, start with an event designator and put a trailing `:N` in it. It goes like this:
+Here `:` (colon) is the "pick word operator". If you want to pick argument N, start with an event designator and suffix it with `:N`. It goes like this:
 
-- `!#:N` - Argument N of the current command
-- `!!:N` - Argument N of the last command
+- `!#:N` - Argument N of the current line
+- `!!:N` - Argument N of the previous command
 - `!-2:N` - Argument N of the penultimate command
 - `!-3:N` - Argument N of the antepenultimate command
+- `!pattern:N` - Argument N of the previous command starting with `pattern`
 
-Where N is an integer starting from 0. Right?
+Where N is an integer starting from 0. Right? The pattern here is:
 
-## Getting argument ranges
+```
+event_designator:N
+```
 
-Ranges are similar. Let's have `:` change hats and become the "slice operator":
+## Getting word ranges
 
-- `!#:A-B` - Arguments A to B of the current command
-- `!!:A-B` - Arguments A to B of the last command
+Ranges are quite similar. Let's have `:` change hats and become the "slice operator":
+
+- `!#:A-B` - Arguments A to B of the current line
+- `!!:A-B` - Arguments A to B of the previous command
 - `!-2:A-B` - Arguments A to B of the penultimate command
 - `!-3:A-B` - Arguments A to B of the antepenultimate command
+- `!pattern:A-B` - Argument A to B of the previous command that starts with `pattern`
 
-Where A and B are integers starting from 0. There are special word designators to exempt you from counting, which can be used as A or B:
+Where A and B are integers starting from 0. The general pattern is:
+
+```
+event_designator:A-B
+```
+
+There are special word designators to exempt you from counting words, which can be used in place of A or B:
 
 - `^` to reference the first argument
 - `$` for the last argument
@@ -119,26 +135,29 @@ co some/file another/file # Ooops.. it should have been cp...
 cp !!:^-$ # Now it's fixed!
 ```
 
-And there's a shortcut for that, `!!*`:
+The `^-$` range is so special that there's a shorthand for it, which is `*`. For example, if you want to get all arguments from the penultimate command, use `!-1*`:
 
 ```sh
 co some/file another/file # Ooops.. it should have been cp...
-cp !!* # Now it's fixed!
+mkdir another/dir # No worries, I will continue doing other things
+cp !-1* # Now it's fixed!
 ```
 
-This is not so real-world because modern shells will usually suggest the `cp` command for you, but the idea is to be precise when you need it!
+This may not be so real-world because modern shells will usually suggest the `cp` command for you, but the idea is to be precise when you need it!
 
 See [word designators](https://www.gnu.org/software/bash/manual/html_node/Word-Designators.html) for more details.
 
 ## The last word: the most common case
 
-As I said before, `!$` is the last argument of the last command line. It is a shortcut to `!!$`, which in turn is a shortcut to `!!:$`.
+As I said before, `!$` represents the last argument of the last command. It is a shorthand for `!!$`, which in turn is a shorthand for `!!:$`.
 
 In the same way, you can do:
 
-- `!#$` - Last argument of the current command line
-- `!-2$` - Last argument of the penultimate command line
-- `!-3$` - Last argument of the antepenultimate command line
+- `!#$` - Last argument of the current command
+- `!!$`, or `!$` - Last argument of the previous command
+- `!-2$` - Last argument of the penultimate command
+- `!-3$` - Last argument of the antepenultimate command
+- `!pattern$` - Last argument of the previous command that starts with `pattern`
 
 Can you see a pattern emerging?
 
@@ -146,4 +165,4 @@ Can you see a pattern emerging?
 
 ## Conclusion
 
-Use these shortcuts to up your terminal game! Having a mental trick is very important because otherwise they will seem super cryptic, but they follow a consistent pattern that you can learn and practice. I hope you've found this post useful!
+You can incorporate these shortcuts in your day-to-day to up your terminal game! Having a mental model is very important because, otherwise, they will seem super cryptic and you will not be inclined to use them, but they do follow a consistent pattern that you can learn and practice. I hope you've found this post useful!

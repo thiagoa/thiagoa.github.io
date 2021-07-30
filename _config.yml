@@ -1,7 +1,7 @@
 title:            Thiago Dev Blog
 description:      My personal coding blog
 # Your site's domain goes here. Leave localhost server or blank when working locally.
-url:              
+url:
 disqus_shortname: thiagoa
 
 # Owner/author information
@@ -15,7 +15,7 @@ owner:
   facebook:
   github: "thiagoa"
   stackoverflow:
-  linkedin:       thiago-silva-4a665839
+  linkedin:       thiago-araújo-silva-4a665839
   instagram:
   lastfm:
   tumblr:
