@@ -6,6 +6,8 @@ tags: [emacs ruby]
 comments: true
 ---
 
+You can read the brazilian portuguese version of this post [here](http://thiagoa.github.io/snippets-legais-com-o-emacs/).
+
 One of the cool things about Emacs is that you can use actual Lisp code to expand your snippets. The purpose of this post is to show how powerful that technique can be, so that you can implement it in your own editor (Neovim is a likely candidate) if needed.
 
 ## Snippets expansion powered by code
@@ -34,8 +36,8 @@ end
 4. Split the previous string by `/` to get a list of two strings: `['job_tracker', 'job']`;
 5. Camel case the strings with the `map` function: `['JobTracker', 'Job']`. One may use a camel case library or an advanced regex for that;
 6. Transform the first element into the `module JobTracker\n` string;
-7. The second element would become `  module Job\n` (with two spaces indentation). If dealing with the last string (which we are,) a class it is! `  class Job\n`;
-8. Close every class or module declaration with `end` at the right level of indentation.
+7. The second element would become `module Job\n` (with two spaces indentation). If dealing with the list's last string (which we are,) a class it is! `class Job\n`;
+8. Close every `class` or `module` declaration with `end` at the right level of indentation.
 
 Of course, that algorithm should be generic.
 
@@ -47,9 +49,9 @@ My `yasnippet` snippet for that is:
 `(ruby-code-for-fully-qualified-name-bottom)`
 ```
 
-> $0 is a placeholder to indicate the cursor position after expanding the snippet
+> $0 is a placeholder to indicate the cursor position after expanding the snippet. Note that we call a function in Lisp with `(function)`, and not `function()`, as it is usual in languages based off of C.
 
-It is composed of three function calls, which generate the top, middle, and bottom parts of the `cclas` code (there's a reason to go with three functions instead of one, and it is a limitation of `yasnippets`). `yasnippets` evaluates Lisp code surrounded by backticks and inserts the return value into the expanded snippet. Oh, we could also have literal strings within the snippet, for sure! That is actually the most common case.
+It is composed of three function calls, which generate the top, middle, and bottom parts of my Ruby code (there's a reason to go with three functions instead of one, and it is a limitation of `yasnippets`). `yasnippets` evaluates Lisp code surrounded by backticks and inserts the return value into the expanded snippet. Oh, we could also have literal strings within the snippet, for sure! That is actually the most common case.
 
 If you're curious about my Lisp implementation, [it starts here](https://github.com/thiagoa/dotemacs/blob/e5448f3862b0e1e365152d72d8fbe016e753bd74/lib/lang-ruby.el#L221).
 
@@ -65,13 +67,13 @@ I have to say my snippet for `cclas` was actually this:
 `(ruby-code-for-fully-qualified-name-bottom)`
 ```
 
-It contained Ruby's `frozen_string_literal` magic comment to guarantee all string literals will be implicitly frozen by the Ruby runtime.
+It contained Ruby's `frozen_string_literal` magic comment to guarantee all string literals will be implicitly frozen by the language's runtime (to avoid mutations).
 
-Recently, I joined a project where `frozen_string_literal` is not needed. How to modify the snippet expansion only for that project? I want that line of code to be expanded conditionally with a setting. Again, here's where Emacs' raw power comes into play.
+Recently, I joined a project where `frozen_string_literal` is not needed. How to tweak my snippet only for that project? I want that line of code to be expanded conditionally with a setting. Again, here's where Emacs' raw power comes into play.
 
 ## How to make my snippet configurable?
 
-To that end I can have a Lisp function read a global boolean, and if the boolean is truthy (`t` in Lisp) then generate the `frozen_string_literal` output within my snippet. It goes like this:
+To that end I can have a Lisp function read a global boolean, and if the boolean is truthy (`t` in Lisp) then generate the `# frozen_string_literal: true` output within my snippet. It goes like this:
 
 ```lisp
 (defun ruby-code-for-frozen-string-literal ()
@@ -79,13 +81,13 @@ To that end I can have a Lisp function read a global boolean, and if the boolean
       "# frozen_string_literal: true\n\n"))
 ```
 
-And of course, I also need to define a variable with `defvar`:
+And of course, I also defined a variable (setting) with `defvar`:
 
 ```lisp
 (defvar ruby-code-for-frozen-string-literal t)
 ```
 
-The `t` (`true`) value means that `frozen_string_literal` will be expanded by default within my snippet. How to modify that variable per project? Emacs has a feature called [Per-Directory Local Variables](https://www.gnu.org/software/emacs/manual/html_node/emacs/Directory-Variables.html). **It means I can override any `defvar` within the scope of a project**. How cool is that? So, I opened up my project and fired this command:
+The `t` (`true`) value means that `frozen_string_literal` will be expanded by default within my snippet. How to modify that variable per project? Emacs has a feature called [Per-Directory Local Variables](https://www.gnu.org/software/emacs/manual/html_node/emacs/Directory-Variables.html). **It means I can override any `defvar` within the scope of a project**. How cool is that? Within my new project I fired this command:
 
 ```
 M-x add-dir-local-variable
@@ -93,15 +95,15 @@ M-x add-dir-local-variable
 
 With the above command, I specified that, for the `enh-ruby-mode` major mode, I want the value of `ruby-code-for-frozen-string-literal` to be `nil`. So it generated a `.dir-locals` file in the root of my project with this:
 
-```
+```lisp
 ((enh-ruby-mode . ((ruby-code-for-frozen-string-literal . nil))))
 ```
 
-That file actually existed, so it just added my new setting into it.
+That file actually existed, so Emacs just added my new setting into it.
 
-The last step was to change my snippet into this:
+The last step was to make a small change to my snippet:
 
-```
+```lisp
 `(ruby-code-for-frozen-string-literal)``(ruby-code-for-fully-qualified-name-top "class")`
 `(ruby-code-for-fully-qualified-name-middle)`$0
 `(ruby-code-for-fully-qualified-name-bottom)`
