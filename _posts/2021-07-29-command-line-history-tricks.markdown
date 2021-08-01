@@ -115,7 +115,7 @@ Ranges are quite similar. Let's have `:` change hats and become the "slice opera
 - `!!:A-B` - Arguments A to B of the previous command
 - `!-2:A-B` - Arguments A to B of the penultimate command
 - `!-3:A-B` - Arguments A to B of the antepenultimate command
-- `!pattern:A-B` - Argument A to B of the previous command that starts with `pattern`
+- `!pattern:A-B` - Arguments A to B of the previous command that starts with `pattern`
 
 Where A and B are integers starting from 0. The general pattern is:
 

@@ -34,7 +34,7 @@ end
 2. Retire o prefixo `lib/`, resultando em `job_tracker/job.rb`;
 3. Retire a extensão `.rb`, resultando em `job_tracker/job`;
 4. Quebre a string anterior pelo delimitador `/` para obter uma lista de duas strings: `['job_tracker', 'job']`;
-5. Aplique camel case nas strings usando a função `map`: `['JobTracker', 'Job']`. Pode-se usar uma biblioteca de camel case ou uma regex avançada;
+5. Aplique camel case nas strings usando a função `map`: `['JobTracker', 'Job']`. usar uma biblioteca de camel case ou uma regex avançada;
 6. Transforme o primeiro elemento na string `module JobTracker\n`;
 7. O segundo elemento se transformaria em `module Job\n` (com dois espaços de indentação). Se estivermos lidando com a última string do array (que é o caso), seria uma classe ao invés de `module`: `class Job\n`;
 8. Feche as declarações de `class` ou `module` com `end`, no nível certo de indentação.
@@ -49,9 +49,11 @@ Meu snippet para isso é o seguinte:
 `(ruby-code-for-fully-qualified-name-bottom)`
 ```
 
-> $0 indica a posição do cursor depois de expandir o snippet. Note que chamamos uma função no Lisp com `(funcao)`, e não `funcao()` como é comum em linguagens derivadas do C.
+> $0 indica a posição do cursor depois de expandir o snippet.
 
 Ele é composto por três chamadas de função que geram as partes do topo, meio, e rodapé do meu código Ruby (existe um motivo para usar três funções ao invés de uma, que se traduz em uma limitação do `yasnippets`). `yasnippets` resolve todo o código Lisp envolvido em backticks (acento grave) e insere o valor de retorno no resultado da expansão do snippet. Nós certamente poderíamos ter, também, strings literais dentro do snippet! Esse é o caso mais comum.
+
+> Note que chamamos uma função no Lisp com `(funcao)`, e não `funcao()` como é comum em linguagens derivadas do C.
 
 Se você estiver curioso para ver a minha implementação em Lisp, [ela inicia aqui](https://github.com/thiagoa/dotemacs/blob/e5448f3862b0e1e365152d72d8fbe016e753bd74/lib/lang-ruby.el#L221).
 
@@ -87,7 +89,9 @@ E, claro, é necessário definir uma variável (configuração) com a diretiva `
 (defvar ruby-code-for-frozen-string-literal t)
 ```
 
-O valor `t` significa que `frozen_string_literal` será expandido por padrão dentro do meu snippet. Como modificar essa variável por projeto? O Emacs tem um recurso chamado [Per-Directory Local Variables](https://www.gnu.org/software/emacs/manual/html_node/emacs/Directory-Variables.html) (variáveis locais por diretório). **Isso significa que eu posso sobrescrever qualquer `defvar` dentro do escopo de qualquer projeto**. Legal né? Então eu abri o meu projeto e acionei esse comando:
+O valor `t` significa que `frozen_string_literal` será expandido por padrão dentro do meu snippet.
+
+E agora, como modificar essa variável dentro do escopo de um projeto específico? O Emacs tem um recurso chamado [Per-Directory Local Variables](https://www.gnu.org/software/emacs/manual/html_node/emacs/Directory-Variables.html) (variáveis locais por diretório). **Isso significa que eu posso sobrescrever qualquer `defvar` dentro do escopo de qualquer projeto**. Legal né? Então eu abri o meu projeto e acionei esse comando:
 
 ```
 M-x add-dir-local-variable
