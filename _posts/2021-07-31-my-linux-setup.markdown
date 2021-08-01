@@ -7,70 +7,72 @@ tags: [linux open-source]
 comments: true
 ---
 
-1 year and a half ago I decided to bite the bullet and go Full Linux. Before that time I've been a macOS user for 10+ years, but I became increasily dissatisfied with Macs and their software ecosystem.
+1 year and a half ago, I decided to bite the bullet and go Full Linux. I used to be a macOS user for 10+ years, but I became increasily dissatisfied with Macs and their software ecosystem including the Apple walled garden.
 
-All of the Macs I owned, a total of three, became unusable from 2 to 3 years. The display my last MacBook Pro had suddenly bricked, and after an expensive repair, 5 months later, the motherboard was gone as well - so my _entire computer_ got bricked again, despite all of my hope that it would last after the repair. While googling, I realized 2017 MacBooks were doomed, as a lot of people were facing serious hardware problems with them (no, my problem was not with the keyboard; I even liked it!). My past experience also showed how fragile Macs can be. Everytime I'd buy a new Mac I'd think "I've been very unlucky but this time it's going to be different". Has it ever been different?
+The three Macs I owned became unusable from 2 to 3 years, which is unacceptable. My last MacBook Pro's display suddenly bricked, and after an expensive repair, 5 months later, the motherboard was gone as well - so my _entire computer_ got bricked again, despite my hope that it would last after the repair. While googling, I realized 2017 MacBooks were doomed, as a great number of people were facing serious hardware problems with them (I didn't have any problem with the keyboard, I actually liked it!). My past experience also showed how fragile Macs can be. Everytime I'd buy a new Mac, I'd think "I've been very unlucky but, this time it's going to be different". Has it ever been different?
 
-Also, my oldest Mac, which still works to this day after a few expensive repairs, can't run the latest version of Apple's operating system. I understand their business model, but that's not what I want for my machines. I want every machine I own to last and provide value as long as it possibly can. The switch to ARM makes the matters even worse, as every Intel Mac in the world now has an expiry date.
+Also, my oldest Mac, which still works to this day after a few expensive repairs, can't run the latest version of Apple's operating system. I understand their business model, but that's not what I want for my machines. I want every machine I own to last and provide value for as long as it possibly can. The switch to ARM makes the matters even worse, as every Intel Mac in the world now has an expiry date.
 
-Does it means Macs are bad and you should avoid buying them? Not at all. Maybe I was unlucky during that 10 year span and Macs are indeed very durable!
+Does it means Macs are bad and you should avoid buying them? Not at all. Maybe I was unlucky during that 10 year span and Macs are indeed OK in terms of durability!
 
 ## About Linux
 
-My curiousity for Linux aroused in 1998. I used it for 9 years non-professionally, 3 years professionally professionally, then I switched to Macs. On the Mac, I discovered productivity tricks that became part of my profesional repertoire forever, requirements for every new operating system I'd consider dipping my toes into (of course, I'm open to new ways of doing things!). Also, nowadays I'm more experienced in improving and automating my setup, and given that Linux is an extremely flexible OS, it seems like the perfect fit for me.
+My curiousity for Linux aroused in 1998. I used it for 9 years non-professionally and 3 years professionally, then I switched to Macs. On the Mac, I discovered productivity tricks that became part of my repertoire forever, which set the bar high for every new operating system I'd consider dipping my toes into (of course, I'm open to new ways of doing things!). Also, nowadays I'm more experienced in improving and automating my setup, and given that Linux is an extremely flexible OS, it seems like the perfect fit for me.
 
-I've gone through many distros in the past: Slackware, Gentoo, Red Hat, Ubuntu, SUSE, etc -, and trying out new distros is less of an interest for me than it was back then. Now, all I need is a distro with a good GNOME experience and a good packaging system (bonus if it's an industry standard that's easily be googlable), and I found that distro in Pop_OS!.
+I've gone through many distros in the past: Slackware, Gentoo, Red Hat, Ubuntu, SUSE, etc -, and trying out new distros is less of an interest for me than it was back then. Now, all I need is a distro with a good GNOME experience and a good packaging system (bonus if it's an industry standard easily googlable), and I found that distro in Pop_OS!.
 
-Pop_OS! is based on Ubuntu, and is a better Ubuntu in my opinion. Some people say it's just a skin, but it's much more than that: aside from very nice and consistent UI additions, it heavily focuses on user productivity. It ships with GNOME plugins for automatically tiling windows, revamped configuration panels, a nice app store (a "store" where everything is free), better hardware support (especially for graphics), a focus on keyboard shortcuts (but also mouse accessibility), and so on. It inherits everything that's good from Ubuntu and adds its own set of goodies on top. I'm old enough to want a stable and flexible system that I can just start using and be productive right away.
+Pop_OS! is based on Ubuntu, and is a better Ubuntu in my opinion. Some people say it's just a skin, but it's much more than that: aside from the very nice and consistent UI additions, it heavily focuses on user productivity. It ships with GNOME plugins for automatically tiling windows, revamped configuration panels, a nice app store (a "store" where everything is free), better hardware support (especially for graphics), a focus on keyboard shortcuts (but also mouse accessibility), and so on. It inherits everything that's good from Ubuntu and adds its own set of goodies on top. I'm old enough to want a stable and flexible system that I can just start using and be productive right away.
 
-I could live buying one Mac after another for very futile reasons, but after my new freedom experience I don't feel like ever going back, unless I need Mac-specific software that can't be used with a virtual machine.
+I could live buying one Mac after another for very futile reasons and be sad when they break, but after my new freedom experience I don't feel like ever going back, unless I need Mac-specific software that can't run on a virtual machine.
 
-## My main computer
+## Hardware
 
 My main computer is a workstation with the following configuration:
 
 | CPU         | AMD Ryzen 3900x   |
-| GPU         | Radeon Rx 5700 XT |
+| GPU         | Radeon RX 5700 XT |
 | Motherboard | ASUS X-570 Plus   |
 | RAM         | 64 GB DDR4 ADATA  |
 | SSD         | 512 GB ADATA      |
 
-It's a very performant computer that handles everything I throw at it, and Linux works very well on it. Actually, I had one occasional issue with suspend, but after the last kernel update it seems to be gone (hopefully!). I also have a dual HiDPI monitor setup and my overall experience has been great! My keyboard and mouse (a trackball, actually) are Logitech's and they work very well with the Logitech unifying receiver.
+![Computer](/assets/my-linux-setup/computer.jpg)
 
-My laptop is a Dell XPS 13 and I've yet to notice a hardware issue. I never thought a Linux laptop could be that great, and I'd even wager to compare it to Mac laptops, which, allegedgly, are the best _laptops_ you can find on the market (when it comes to "just working" - that is, until it bricks :D). I expect a good laptop to:
+It's a very performant computer capable of handling everything I throw at it, and Linux works very well on it. Actually, I had one occasional grip with suspend, but after the last kernel update it seems to be gone. I also have a dual HiDPI monitor setup and my overall experience has been great! My keyboard and mouse (a trackball, actually) are Logitech's and they work very well with the Logitech unifying receiver.
 
+My laptop is a Dell XPS 13 and I've yet to notice a hardware issue with it. I never thought a Linux laptop could be that good, and I'd even wager to compare it to Mac laptops, which, allegedgly, are among the best _laptops_ you can find on the market (when it comes to working out of the box - that is, until it bricks :D). I expect a good laptop to:
+
+- Be portable, lightweight, cool, and fast
 - Have great battery life
-- Close the lid and it sleeps smoothly
-- Open the lid back up, it wakes up fast
-- Have a great trackpad surface + multi-touch gesture support
+- Have a great trackpad
 - Have a great keyboard
-- Be portable and lightweight
+- Close the lid, it sleeps smoothly
+- Open the lid, it wakes up fast
 - Have an operating system that works very well on it
 
-### When Linux is not good
+## When Linux is not good
 
-To be honest, I was pretty lucky this time. Graphics support for my previous Dell laptop with an NVIDIA prime GPU really sucked, and I had many problems with it. It handled one monitor well, but two monitors, not so much. Suspend had many nagging issues, and things that worked before kept breaking between driver updates. Dual monitor setup was highly unstable under that setup. Otherwise, my laptop worked great and I had no complaints.
+To be fair, I was pretty lucky this time around. Graphics support on my previous Dell laptop with NVIDIA prime GPU really sucked, and I had many problems with it. It handled one monitor without problems, but two monitors not so much. Suspend had many nagging issues, and things that worked before kept breaking between driver updates. Dual monitor setup was highly unstable under that setup. Otherwise, my laptop worked great and I had no complaints.
 
-When going with Linux, carefully research your hardware choices if you want to have a good experience. Some say nowadays Linux is plug-and-play, and I'd say it _mostly_ is; but not uncommonly, there's that thing that does not work reliably or does not work at all. And even with that, you have to be prepared to face any emerging issues. Hopefully, I did not face any this time around, so I'm pretty happy!
+When going with Linux, carefully research your hardware choices if you want to have a good experience. Some say nowadays Linux is plug-and-play, and I'd say it _mostly_ is; but not uncommonly, there's that thing that does not work reliably or does not work at all. And even with that, you have to be prepared to face any emerging issues on unknown hardware. Freedom comes at a price! Thankfully, I did not face any this time around, so I'm pretty happy!
 
-## Characteristics of a productive software setup
+## Characteristics of a productive environment
 
-Let's have a quick look at some features that are important _for me_. To be used most effectively, a computer system should provide software that allows me to enjoy or script quick access through anything I use on my day to day. I want to cut corners and to get to the meat of what I need as fast as I can. For example:
+Let's have a quick look at some features that are important _for me_. To be used most effectively, a computer system should provide software that allows me to enjoy or script quick access through anything I use on my day to day. I want to cut corners and get to the meat of what I need as fast as I can. For example:
 
-- A quick way to launch and switch to apps
+- A quick way to launch / switch to apps
 - A quick way to access files and UI configuration panels
-- Flexible keyboard shortcuts to do anything: position and move windows between workspaces and monitors, switch workspaces, and so on
+- Flexible keyboard shortcuts
 - Flexible mouse shortcuts
 - A text expander
 - Clipboard history
 - Day-to-day cloud storage
 - A password manager
-- A quick way to look up documentation (because I'm a programmer)
-- A dropdown terminal (quake style) to avoid context-switching
-- Quick look up of URL bookmarks
+- A quick way to look up documentation
+- A dropdown terminal
+- Quick lookup of URL bookmarks
 - Quick browser tab access
-- Quick way to look file contents
-- A handy translator and dictionary (because I work with English on my day to day)
+- Quick way to peek at files
+- A handy translator and dictionary
 - Basic level of UI programmability
 - Quick web searches
 - Quick GitHub lookup
@@ -78,34 +80,63 @@ Let's have a quick look at some features that are important _for me_. To be used
 - Quick AWS access
 - Etc.
 
-Some of the things I listed can be done through the web browser, but without a dedicated tool or script they require **context-switching** to a browser window and then following other steps, which can be disruptive. macOS' Alfred app made me very demanding in that regard, and all productivity tweaks, as long as one commits to using them, do really pay off! In short, I want to avoid context-switching as much as possible.
+Some of the things I listed can be done through the web browser, but without a dedicated tool or script they require **context-switching** to a browser window and then following more steps, which can be disruptive. macOS' Alfred app made me very demanding in that regard, and all productivity tweaks, as long as one commits to using them, do really pay off! In short, I want to avoid context-switching as much as possible.
 
-Does it mean I can't use a computer without those features? Absolutely not. It's just that it's so much better with them. I'm by no means an afficcionado and I no longer spend time optimizing things that won't bring me value.
+Does it mean I can't use a computer without those features? Absolutely not. It's just that it's so much better using my computer with them. I'm by no means an afficcionado and I no longer kill time optimizing things that won't bring me value.
 
 Not extensively, let's go over some of the techniques and software I use. I won't go into details, so if you want to know more about any topic please let me know and I'll write new posts to fill the gaps :)
 
 ## Dotfiles
 
+I store most of my development and Linux configuration in my [dotfiles repo](https://github.com/thiagoa/dotfiles). It has an (theoretically) idempotent [setup.sh](https://github.com/thiagoa/dotfiles/blob/758fcda910edaae6ecacf1a6337e2e8a568fc153/setup.sh) script that installs everything I want to have on all of my development machines. The main goal is not to configure new machines because I don't do that often (even though it allows that); rather, it is to document my tools, software, workarounds, and settings. **Also, it's supposed to be used just by me because it is very specific to my setup and way of working**. It grew very organically and it even has some cruft that I did not bother cleaning up yet.
+
+Speaking about Linux, my dotfiles set the following things up for me, among others:
+
+- Common packages (deb, flatpak, snap, compiled)
+- Emacs configuration
+- Vim configuration
+- GNOME Sushi
+- Brotab
+- udev hooks to configure hardware
+- GNOME application shortcuts
+- GNOME settings
+- Veracrypt setup
+- Ulauncher setup and hacks
+- sysctl setup
+- System sleep scripts
+- xkeysnail (deprecated)
+- Devilspie2 (deprecated)
+
+As I said, there's some cruft so not everything you find there is being used.
+
+## Basic programming setup
+
+I use VS Code for JavaScript and Emacs for everything else. I also use Neovim for quick edits, even though I used vim exclusively for more than 10 years. This is such a big topic that I'll leave to a later time!
+
+![Emacs](/assets/my-linux-setup/emacs.jpg)
+
+To manage tool versions on my local machine I use [`asdf`](https://github.com/asdf-vm/asdf) (for Ruby, Clojure, Elixir, Node, Yarn, Java, Clojure, etc). It's a great project that I highly recommend because you can manage most of your programming tools under a single umbrella. I also use Docker when it makes sense, and bonus points here because it doesn't get better in any operating system. My macOS experience was pretty much miserable, so much that I stopped using it completely.
+
+There are also CLI tools that I won't go into detail here!
+
 ## Quick Look
 
-Quick Look is one of great things about macOS. It's such a simple and important idea that I wonder why other operating systems don't ship with something similar. I can certainly live without it, but I'm much better off with it.
+Quick Look is one of greatest achievements of macOS. It's such a simple and important idea that I wonder why other operating systems don't ship with something similar. I can certainly live without it, but I'm much better off with it.
 
 Thankfully, [`gnome-sushi`](https://gitlab.gnome.org/GNOME/sushi) is a good Linux alternative. It works with every file I tried: documents, images, PDFs, videos, and so on. It's not perfect but it serves me well enough. Unfortunately, installation is not that easy; at the time of writing, the version available in apt does not work with GNOME 3.38 so I have a script to install it manually.
 
 ![Gnome Sushi](/assets/my-linux-setup/gnome-sushi.jpg)
 
-In my dotfiles, I'm installing the dependencies [here](https://github.com/thiagoa/dotfiles/blob/master/linux/packages/setup.sh#L73-L85) and I have a dedicated script to clone and install it [here](https://github.com/thiagoa/dotfiles/blob/758fcda910edaae6ecacf1a6337e2e8a568fc153/linux/packages/setup_gnome_sushi.sh).
-
-## Text editor
-
-I use VS Code for JavaScript and Emacs for everything else. I also use Neovim for quick edits, even though I used vim exclusively for more than 10 years for programming. This is such a big topic that I'll leave to other posts!
+In my dotfiles, I'm installing the dependencies [here](https://github.com/thiagoa/dotfiles/blob/master/linux/packages/setup.sh#L73-L85) and I have a dedicated script to clone and install GNOME Sushi [here](https://github.com/thiagoa/dotfiles/blob/758fcda910edaae6ecacf1a6337e2e8a568fc153/linux/packages/setup_gnome_sushi.sh).
 
 ## Launcher
 
-Many of the topics I listed fall under the "launcher" category. On the Mac, I used to do everything with Alfred but in Linux I get the same efficiency with a slightly more fragmented setup. I use two launchers:
+Many of the topics I listed fall under the "launcher" category. On the Mac, I used to do everything with Alfred but on Linux I get the same efficiency with a slightly more fragmented setup. I use two launchers:
 
-- Gnome Activities to launch applications, find files, UI configuration panels, and so on. Pop_OS! has a launcher feature but I don't like the user experience (in fact, it's one of the few things I don't like about it - but I will be happy to switch to it when it improves!). I also have a dedicated file finder that I scripted with `ag` and `fzf`;
-- Ulauncher to script access through my system and 3rd party services.
+- Gnome Activities - To launch applications, find files, and UI configuration panels.
+- Ulauncher - To script access through my system and 3rd party services.
+
+Pop_OS! has a launcher feature but I don't like the user experience. In fact, it's one of the few things I don't like about it - but I will be happy to switch to it when it improves! I also have a dedicated file finder scripted with `ag` and `fzf`;
 
 ![Ulauncher](/assets/my-linux-setup/ulauncher.jpg)
 
@@ -122,25 +153,40 @@ So, I use Ulauncher for what it's good at! It has great Python scripting capabil
 
 One disadvantage of Ulauncher is that I had to fork some plugins and tweak them to work the way I wanted, or because they no longer worked. On the flip side, Ulauncher plugins are quite straightforward to work with, and after everything's setup it's really great!
 
-## Favorite applications: idempotent shortcuts
+## Favorite applications
 
-This is such an important feature for me, and I doubt I will find something that works better. I can switch to any application docked in GNOME (Pop OS's dock) with a single keystroke. If the application is not opened, it will instantly pop up, which is great! That's the reason why I call it "idempotent shortcuts". Also, my applications are usually configured to restore their last state when possible, so that I can have things exactly how I left them, even after reopened. A good example is Chrome.
+This is such an important feature for me, and I doubt I'll find something that works better. It consists in switching to any application docked on GNOME with a single keystroke. If the application is not opened, it will instantly pop up, which is great! That's the reason why I call it "idempotent shortcuts". Also, my applications are configured to restore their last state when possible, so that I can return to things exactly how I left them (example: Chrome).
 
-Surprisingly, setting up "Favorite Applications" involves a set of hidden GNOME shortcuts to the first 9 docked applications. I set `Super+number` for that, so `Super+1` launches or switches to app 1, `Super+2` to app 2, and so on. Here's how you can do that:
+Surprisingly, setting up "Favorite Applications" involves some hidden GNOME shortcuts to the first 9 docked applications. I set `Super+number` for that, so `Super+1` launches or switches to app 1, `Super+2` to app 2, and so on. Here are some commands for you to try that:
 
--
+```
+gsettings set org.gnome.shell.keybindings switch-to-application-1 "['<Super>1']"
+gsettings set org.gnome.shell.keybindings switch-to-application-2 "['<Super>2']"
+gsettings set org.gnome.shell.keybindings switch-to-application-3 "['<Super>3']"
+gsettings set org.gnome.shell.keybindings switch-to-application-4 "['<Super>4']"
+gsettings set org.gnome.shell.keybindings switch-to-application-5 "['<Super>5']"
+gsettings set org.gnome.shell.keybindings switch-to-application-6 "['<Super>6']"
+gsettings set org.gnome.shell.keybindings switch-to-application-7 "['<Super>7']"
+gsettings set org.gnome.shell.keybindings switch-to-application-8 "['<Super>8']"
+gsettings set org.gnome.shell.keybindings switch-to-application-9 "['<Super>9']"
+```
 
-Some people make scripts to launch their most used applications at certain window layouts and particular workspaces, but Favorite Applications renders that unnecessary. GNOME usually remembers window positions, so all I have to do is fire a `Super+number`, then I insist on using the same shortcuts forever, which is quicker than `Alt+tab`. Also, they work based on dock position, so I don't need to setup dedicated shortcuts for my favorite applications.
+Some people make scripts to launch their most used applications, at certain window layouts and particular workspaces, but "Favorite Applications" renders that trick unnecessary. GNOME usually remembers the last window positions, so all I have to do is fire `Super+number` and insist on using the same shortcuts forever, which is quicker than `Alt+tab`. Also, they work based on dock position, so I don't need to setup dedicated shortcuts for my favorite applications.
 
 ## Terminal
 
 Old fashioned terminal windows are no longer enough for me. Terminals have to be omnipresent and just pop up (or would I say, drop down?) wherever I am, without context-switching. I use Guake for that, which is triggered by `Super+[`. Guake is very configurable and good looking, but it does not support window splits. Thankfully, that's no problem because my shell is `tmux`, which provides great window layout support. I don't even use Guake tabs because `tmux` has it all inside.
+
+![Guake](/assets/my-linux-setup/guake.jpg)
 
 Guake also has cool features such as a keyboard shortcut to configure transparency. By default, my terminal has transparency enough so that I can refer to information behind it, but I can also toggle to a flat background when I need to focus. It also has some very nice keyboard shortcuts for lots of other tasks, like increasing or decreasing the height of the terminal window.
 
 ## Clipboard history
 
 The native clipboard functionality in all operating systems is pretty much mediocre because no one has clipboard history. For that I use a GNOME plugin, Clipboard indicator. It has keyboard shortcuts and search works as I expect, so it's perfect for my use case.
+
+![Clipboard indicator](/assets/my-linux-setup/clipboard-indicator.jpg)
+
 
 ## Text expander
 
@@ -152,7 +198,9 @@ I use text expanders to save me from the mental burden of forever repeating mund
 
 And it smoothly expands to "Thiago Araújo Silva" in any application. It works as good as on the Mac. However, AutoKey is much more than that: it's a full blown automation tool and Python scripting environment. You can simulate keypresses, keybindings, scope actions per application, and perform some pretty involved wizard trickery.
 
-The downside is that it's a technical tool that requires programming knowledge if you want to do something else other than expanding simple snippets, so it's not as easy to use as TextExpander. But it's Python, right?
+![Autokey](/assets/my-linux-setup/autokey.jpg)
+
+The downside is that it's a technical tool that requires some programming knowledge if you want to do something else other than expanding simple snippets, so it's not as easy to use as TextExpander. But it's Python, right?
 
 ## Keyboard shortcuts
 
@@ -186,15 +234,19 @@ Here is my [xbindkeys config](https://github.com/thiagoa/dotfiles/blob/master/xb
 
 I use 1Password because I never tried other alternatives since my Mac days. And you know what? Linux support is great, as good as it was on the Mac. The Chrome browser extension is great and they've recently released a desktop application that can be opened at anytime with `Ctrl+Shift+\`.
 
+![1Password](/assets/my-linux-setup/1password.jpg)
+
 Using it is pretty simple: keep your entries organized, commit to polishing as you create them (with strong passwords), and you will be able to login to any website with a few keystrokes, effortlessly.
 
 ## Cloud storage
 
-Here the answer is simple: I use Dropbox. I tried SpiderOak, OneDrive (through Insync), and pCloud, and all of them either eat too much CPU, syncs unreliably, or have weird file naming restrictions or rules. Dropbox is able to sync gigabytes of data in a few minutes while keeping your machine silent. I store most of my non-archived private files in it, including private OS settings that I don't want to expose in my dotfiles.
+Here the answer is simple: I use Dropbox. I tried SpiderOak, OneDrive (through Insync), and pCloud, and all of them either eat too much CPU, sync unreliably, or have weird file naming restrictions or rules. Dropbox is able to sync gigabytes of data in a few minutes while keeping your machine silent. I store most of my non-archived private files in it, including private OS settings that I don't want to expose in my dotfiles.
 
 ## Translator
 
 Google translate is good, but I want my translator to open with a single keystroke without context switching, and without mixing with my browser tabs. I never found a good Alfred or Ulauncher plugin for that, so I stuck with [Crow Translate](https://crow-translate.github.io/). It's one of the few QT apps I use. My QT theme, however, is very similar to GTK's, so it feels like a first class citizen on my desktop.
+
+![Crow Translate](/assets/my-linux-setup/crow-translate.jpg)
 
 I even implemented an idempotent script to toggle it and assigned the `Super+t` keybinding to it. You can find it [here](https://github.com/thiagoa/dotfiles/blob/master/bin/toggle-crow-translate).
 
