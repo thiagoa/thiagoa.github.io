@@ -4,6 +4,9 @@ description:      My personal coding blog
 url:
 disqus_shortname: thiagoa
 
+site:
+  url: https://thiagoa.github.io
+
 # Owner/author information
 owner:
   name:           Thiago A. Silva
